@@ -55,11 +55,11 @@ abstract class Magic
     /** @return MethodsAbstract */
     private function getMethods()
     {
+        // @codeCoverageIgnoreStart
         if (empty($this->methods)) {
-            // @codeCoverageIgnoreStart
             $this->setDefaultShop();
-            // @codeCoverageIgnoreEnd
         }
+        // @codeCoverageIgnoreEnd
 
         return $this->methods;
     }
@@ -74,12 +74,12 @@ abstract class Magic
 
     public function getRequestBase()
     {
-        // use defaults if needed
+        // @codeCoverageIgnoreStart
         if (empty($this->ShopID)) {
-            // @codeCoverageIgnoreStart
+            // use defaults if needed
             $this->setDefaultShop();
-            // @codeCoverageIgnoreEnd
         }
+        // @codeCoverageIgnoreEnd
 
         return [
             'ShopID' => $this->ShopID,
