@@ -1,0 +1,30 @@
+{
+    "name": "sanmai/gmopg",
+    "description": "GMO Payment Gateway API for simple credit card payments",
+    "type": "library",
+    "require": {
+        "guzzlehttp/guzzle": "^6"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "<6",
+        "satooshi/php-coveralls": "^1.0",
+        "friendsofphp/php-cs-fixer": "^2.6"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Alexey Kopytko",
+            "email": "alexey@kopytko.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "GMO\\": "src/GMO"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "GMO\\": "tests/GMO"
+        }
+    }
+}
