@@ -1,5 +1,7 @@
 [![Build Status](https://travis-ci.org/sanmai/gmopg.svg?branch=master)](https://travis-ci.org/sanmai/gmopg)
 [![Coverage Status](https://coveralls.io/repos/github/sanmai/gmopg/badge.svg?branch=master)](https://coveralls.io/github/sanmai/gmopg?branch=master)
+[![Latest Stable Version](https://poser.pugx.org/sanmai/gmopg/version)](https://packagist.org/packages/sanmai/gmopg)
+[![License](https://poser.pugx.org/sanmai/gmopg/license)](https://packagist.org/packages/sanmai/gmopg)
 
 # Installation
 
@@ -41,7 +43,7 @@ The last constant `GMO_TRIAL_MODE` should be set to `true` if you're using a tes
 	    // The response can be used to query details about a transaction, make refunds and so on.
 	} else {
 	    $errorCode = $payment->getErrorCode();
-	    // Show error message to the customer?
+	    // Show an error message to the customer? Your choice.
 	}
 
 [A list of most known error codes.](https://github.com/fumikito/Literally-WordPress/blob/master/class/payment/gmo_error_handler.php)
