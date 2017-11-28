@@ -13,51 +13,51 @@ use GMO\Exception;
 
 abstract class MethodsAbstract
 {
-	private $reflection;
+    private $reflection;
 
-	public function getUrl(Magic $class)
-	{
-		// expected format is "GMO\API\Call\Example"
-		if (!preg_match('#\\\([^\\\]+)$#', get_class($class), $matched)) {
-			throw new Exception("Invalid class name: must be within a namespace");
-		}
+    public function getUrl(Magic $class)
+    {
+        // expected format is "GMO\API\Call\Example"
+        if (!preg_match('#\\\([^\\\]+)$#', get_class($class), $matched)) {
+            throw new Exception("Invalid class name: must be within a namespace");
+        }
 
-		list (, $className) = $matched;
+        list(, $className) = $matched;
 
-		$this->reflection || $this->reflection = new \ReflectionClass($this);
-		return $this->reflection->getConstant($className);
-	}
+        $this->reflection || $this->reflection = new \ReflectionClass($this);
+        return $this->reflection->getConstant($className);
+    }
 
-	public function getQuery(Magic $class)
-	{
-	    return array_merge($class->getRequestBase(), get_object_vars($class));
-	}
+    public function getQuery(Magic $class)
+    {
+        return array_merge($class->getRequestBase(), get_object_vars($class));
+    }
 
-	private static $guzzleClient;
+    private static $guzzleClient;
 
-	public function dispatch(Magic $call)
-	{
-	    self::$guzzleClient = new Client();
-	    $response = self::$guzzleClient->request('POST', $this->getUrl($call), [
-	        'form_params' => $this->getQuery($call),
-	    ]);
+    public function dispatch(Magic $call)
+    {
+        self::$guzzleClient = new Client();
+        $response = self::$guzzleClient->request('POST', $this->getUrl($call), [
+            'form_params' => $this->getQuery($call),
+        ]);
 
-	    parse_str($response->getBody(), $rawResponse);
+        parse_str($response->getBody(), $rawResponse);
 
-	    if (isset($rawResponse['ErrCode'])) {
+        if (isset($rawResponse['ErrCode'])) {
             $response = new ErrorResponse();
-	    } else {
-	        $response = $call->getResponse();
-	    }
+        } else {
+            $response = $call->getResponse();
+        }
 
-	    foreach ($rawResponse as $key => $value) {
-	        $response->{$key} = $value;
-	    }
+        foreach ($rawResponse as $key => $value) {
+            $response->{$key} = $value;
+        }
 
-	    if ($response instanceof ErrorResponse) {
-	        $response->splitErrors();
-	    }
+        if ($response instanceof ErrorResponse) {
+            $response->splitErrors();
+        }
 
-	    return $response;
-	}
+        return $response;
+    }
 }

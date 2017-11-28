@@ -76,11 +76,3 @@ class ExecTran extends Magic
         return new ExecTranResponse();
     }
 }
-
-
-
-
-
-
-
-

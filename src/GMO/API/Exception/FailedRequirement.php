@@ -8,6 +8,4 @@ namespace GMO\API\Exception;
 
 class FailedRequirement extends \GMO\Exception
 {
-
 }
-

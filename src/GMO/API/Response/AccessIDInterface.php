@@ -11,5 +11,3 @@ interface AccessIDInterface
     public function getAccessID();
     public function getAccessPass();
 }
-
-

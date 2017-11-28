@@ -8,5 +8,4 @@ namespace GMO\API\Response;
 
 class ExampleResponse extends Basic
 {
-
 }

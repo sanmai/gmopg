@@ -90,8 +90,10 @@ abstract class Magic
 
     public function withRequired()
     {
-        foreach (func_get_args() as $val) if (empty($val)) {
-            throw new FailedRequirement("Failed requirement");
+        foreach (func_get_args() as $val) {
+            if (empty($val)) {
+                throw new FailedRequirement("Failed requirement");
+            }
         }
 
         return $this;

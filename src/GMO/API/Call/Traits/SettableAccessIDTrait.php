@@ -5,6 +5,7 @@
  */
 
 namespace GMO\API\Call\Traits;
+
 use GMO\API\Response\AccessIDInterface;
 
 trait SettableAccessIDTrait

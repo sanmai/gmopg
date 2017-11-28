@@ -25,4 +25,3 @@ class SearchTrade extends Magic
         return new SearchTradeResponse();
     }
 }
-

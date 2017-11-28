@@ -6,7 +6,6 @@
 
 namespace GMO\API;
 
-
 use GMO\API\Call\Magic;
 
 /**

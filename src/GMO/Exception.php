@@ -8,5 +8,4 @@ namespace GMO;
 
 class Exception extends \Exception
 {
-
 }

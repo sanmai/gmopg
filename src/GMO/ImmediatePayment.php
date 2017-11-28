@@ -183,5 +183,3 @@ class ImmediatePayment
         return true;
     }
 }
-
-
