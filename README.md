@@ -14,8 +14,8 @@ This library expects certain global constants present. Namely, you need to have 
 ```php
 // ショップ情報
 define('GMO_SHOP_ID', 'tshop0000001'); // ショップＩＤ
-define('GMO_SHOP_PASSWORD', 'qwerty'); // ショップ名
-define('GMO_SHOP_NAME', 'My Shop'); // ショップパスワード
+define('GMO_SHOP_NAME', 'My Shop'); // ショップ名
+define('GMO_SHOP_PASSWORD', 'qwerty'); // ショップパスワード
 define('GMO_TRIAL_MODE', false);
 ```
 
