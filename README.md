@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.org/sanmai/gmopg.svg?branch=master)](https://travis-ci.org/sanmai/gmopg)
 [![Coverage Status](https://coveralls.io/repos/github/sanmai/gmopg/badge.svg?branch=master)](https://coveralls.io/github/sanmai/gmopg?branch=master)
+[![Maintainability](https://api.codeclimate.com/v1/badges/96a309a0d0ad62c41de6/maintainability)](https://codeclimate.com/github/sanmai/gmopg/maintainability)
 [![Latest Stable Version](https://poser.pugx.org/sanmai/gmopg/version)](https://packagist.org/packages/sanmai/gmopg)
 [![License](https://poser.pugx.org/sanmai/gmopg/license)](https://packagist.org/packages/sanmai/gmopg)
 
