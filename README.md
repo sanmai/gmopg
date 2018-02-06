@@ -149,3 +149,7 @@ In this `$response` you would find these fields:
 	  public $ClientField3 =>
 	  string(0) ""
 	}
+
+# Futher API Documentation
+
+GMO-PG is very secretive seemingly for no reason at all (that's [a complete opposite of Stripe](https://stripe.com/docs)), and typically you can only access their documentation upon signing a non-disclosure agreement.
