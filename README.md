@@ -65,26 +65,26 @@ $response = $payment->getResponse();
 
 A typical `$response` will look like so:
        
-       class GMO\API\Response\ExecTranResponse#1 (9) {
-         public $ACS =>
-         string(1) "0"
-         public $OrderID =>
-         string(10) "1517000000"
-         public $Forward =>
-         string(7) "0afd1200"
-         public $Method =>
-         string(1) "1"
-         public $PayTimes =>
-         string(0) ""
-         public $Approve =>
-         string(7) "0112234"
-         public $TranID =>
-         string(28) "180111111111111111111344439"
-         public $TranDate =>
-         string(14) "20221222213141"
-         public $CheckString =>
-         string(32) "68b329da9893e34099c7d8ad5cb9c940"
-       }
+	class GMO\API\Response\ExecTranResponse#1 (9) {
+	  public $ACS =>
+	  string(1) "0"
+	  public $OrderID =>
+	  string(10) "1517000000"
+	  public $Forward =>
+	  string(7) "0afd1200"
+	  public $Method =>
+	  string(1) "1"
+	  public $PayTimes =>
+	  string(0) ""
+	  public $Approve =>
+	  string(7) "0112234"
+	  public $TranID =>
+	  string(28) "180111111111111111111344439"
+	  public $TranDate =>
+	  string(14) "20221222213141"
+	  public $CheckString =>
+	  string(32) "68b329da9893e34099c7d8ad5cb9c940"
+	}
 
 ## Transaction details
 
