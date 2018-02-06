@@ -7,7 +7,6 @@
 namespace GMO\API\Call;
 
 use GMO\API\Response\ExecTranResponse;
-use GMO\API\Exception;
 use GMO\API\Call\Traits\SettableAccessIDTrait;
 
 class ExecTran extends Magic
