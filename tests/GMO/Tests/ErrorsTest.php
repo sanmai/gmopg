@@ -24,5 +24,4 @@ class ErrorsTest extends TestCase
     {
         $this->assertContains('unknown', Errors::getDescription('TEST123'));
     }
-
 }

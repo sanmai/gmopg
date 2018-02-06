@@ -550,12 +550,13 @@ class Errors
 
     public static function getDescription($code)
     {
-        if (!empty(self::ERROR_CODE_TO_DESCRIPTION_MAP_ENGLISH[$code])) {
-            return self::ERROR_CODE_TO_DESCRIPTION_MAP_ENGLISH[$code];
-        }
-
-        if (!empty(self::ERROR_CODE_TO_DESCRIPTION_MAP_JAPANESE[$code])) {
-            return self::ERROR_CODE_TO_DESCRIPTION_MAP_JAPANESE[$code];
+        foreach ([
+            self::ERROR_CODE_TO_DESCRIPTION_MAP_ENGLISH,
+            self::ERROR_CODE_TO_DESCRIPTION_MAP_JAPANESE
+        ] as $errors) {
+            if (isset($errors[$code])) {
+                return $errors[$code];
+            }
         }
 
         return 'An unknown error occurred.'; // 原因不明のエラーが発生しました。
