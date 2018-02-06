@@ -65,7 +65,7 @@ $response = $payment->getResponse();
 
 ```
 
-[A list of most known error codes.](https://github.com/fumikito/Literally-WordPress/blob/master/class/payment/gmo_error_handler.php)
+[A list of most known error codes.](https://faq.gmo-pg.com/service/Detail.aspx?id=480&printMode=1) [In a readable form.](https://github.com/fumikito/Literally-WordPress/blob/master/class/payment/gmo_error_handler.php) [And another.](https://github.com/everright/gmo-pg-php/blob/master/src/GMO/Payment/Consts.php)
 
 A typical `$response` will look like so:
        
