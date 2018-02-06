@@ -23,6 +23,15 @@ Where first three you can get from the management panel or from emails from GMO 
 
 The last constant `GMO_TRIAL_MODE` should be set to `true` if you're using a test shop password.
 
+Other than that you can configure the API by calling these static methods:
+
+```php
+\GMO\API\Defaults::setShopID($shopId);
+\GMO\API\Defaults::setShopName($shopName);
+\GMO\API\Defaults::setPassword($shopPassword);
+```
+Currently there is no easy way to enable a test mode other than by defining a constant `GMO_TRIAL_MODE` with `true` value.
+
 # Usage
 
 ```php
@@ -49,33 +58,33 @@ $response = $payment->getResponse();
 /** @var \GMO\API\Response\ExecTranResponse $response */
 // You would probably want to save the response in the database for future reference.
 // The response can be used to query details about a transaction, make refunds and so on.
-var_dump($response);
+
 ```
 
 [A list of most known error codes.](https://github.com/fumikito/Literally-WordPress/blob/master/class/payment/gmo_error_handler.php)
 
 A typical `$response` will look like so:
-	
-	class GMO\API\Response\ExecTranResponse#1 (9) {
-	  public $ACS =>
-	  string(1) "0"
-	  public $OrderID =>
-	  string(10) "1517000000"
-	  public $Forward =>
-	  string(7) "0afd1200"
-	  public $Method =>
-	  string(1) "1"
-	  public $PayTimes =>
-	  string(0) ""
-	  public $Approve =>
-	  string(7) "0112234"
-	  public $TranID =>
-	  string(28) "180111111111111111111344439"
-	  public $TranDate =>
-	  string(14) "20221222213141"
-	  public $CheckString =>
-	  string(32) "68b329da9893e34099c7d8ad5cb9c940"
-	}
+       
+       class GMO\API\Response\ExecTranResponse#1 (9) {
+         public $ACS =>
+         string(1) "0"
+         public $OrderID =>
+         string(10) "1517000000"
+         public $Forward =>
+         string(7) "0afd1200"
+         public $Method =>
+         string(1) "1"
+         public $PayTimes =>
+         string(0) ""
+         public $Approve =>
+         string(7) "0112234"
+         public $TranID =>
+         string(28) "180111111111111111111344439"
+         public $TranDate =>
+         string(14) "20221222213141"
+         public $CheckString =>
+         string(32) "68b329da9893e34099c7d8ad5cb9c940"
+       }
 
 ## Transaction details
 
@@ -90,7 +99,7 @@ $payment->setupOther($searchTrade);
 $response = $searchTrade->dispatch();
 ```
 
-In this `$response` you would see an object the following fields: 
+In this `$response` you would find these fields:
 
 	class GMO\API\Response\SearchTradeResponse#4950 (21) {
 	  public $AccessID =>
