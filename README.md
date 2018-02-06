@@ -9,30 +9,34 @@
 
 # Configuration
 
-This library expects certain global constants present. Namely, you need to have defined:
+There are two ways to configure the API:
 
-```php
-  // ショップ情報
-define('GMO_SHOP_ID', 'tshop0000001'); // ショップＩＤ
-define('GMO_SHOP_PASSWORD', 'qwerty'); // ショップ名
-define('GMO_SHOP_NAME', 'My Shop'); // ショップパスワード
-define('GMO_TRIAL_MODE', false);
-```
+1. With global constants. Namely, you need to have defined:
 
-Where first three you can get from the management panel or from emails from GMO PG. 
+	```php
+	  // ショップ情報
+	define('GMO_SHOP_ID', 'tshop0000001'); // ショップＩＤ
+	define('GMO_SHOP_PASSWORD', 'qwerty'); // ショップ名
+	define('GMO_SHOP_NAME', 'My Shop'); // ショップパスワード
+	define('GMO_TRIAL_MODE', false);
+    ```
+    Where first three you can get from the management panel or from emails from GMO PG.
+    
+    The last constant `GMO_TRIAL_MODE` should be set to `true` if you're using a test shop password. 
 
-The last constant `GMO_TRIAL_MODE` should be set to `true` if you're using a test shop password.
+2. By calling these static methods:
 
-Other than that you can configure the API by calling these static methods:
+	```php
+	\GMO\API\Defaults::setShopID($shopId);
+	\GMO\API\Defaults::setShopName($shopName);
+	\GMO\API\Defaults::setPassword($shopPassword);
+	```
 
-```php
-\GMO\API\Defaults::setShopID($shopId);
-\GMO\API\Defaults::setShopName($shopName);
-\GMO\API\Defaults::setPassword($shopPassword);
-```
-Currently there is no easy way to enable a test mode other than by defining a constant `GMO_TRIAL_MODE` with `true` value.
+## Testing
 
-# Usage
+Currently there is no easy way to enable a test mode other than by defining a constant `GMO_TRIAL_MODE` set to `true`.
+
+# Basic usage
 
 ```php
 // A wrapper object that does everything for you.
