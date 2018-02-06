@@ -15,6 +15,7 @@ use GMO\API\Response\ExecTranResponse;
 use GMO\API\Call\AlterTran;
 use GMO\API\Response\AlterTranResponse;
 use GMO\API\Call\Magic;
+use GMO\API\Errors;
 
 class ImmediatePayment
 {
@@ -168,9 +169,26 @@ class ImmediatePayment
         return $this->execTranResponse;
     }
 
+    /**
+     * Array of error codes.
+     * @return array
+     */
     public function getErrorCode()
     {
         return $this->errorCode;
+    }
+
+    /**
+     * Returns an array of maching error codes and descriptions.
+     */
+    public function getErrors()
+    {
+        $result = [];
+        foreach ($this->errorCode as $code) {
+            $result[$code] = Errors::getDescription($code);
+        }
+
+        return $result;
     }
 
     public function setupOther(Magic $method)

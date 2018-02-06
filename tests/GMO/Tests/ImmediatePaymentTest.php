@@ -8,6 +8,7 @@ namespace GMO\Tests;
 
 use GMO\API\Call\SearchTrade;
 use GMO\API\Response\SearchTradeResponse;
+use GMO\API\Errors;
 
 class ImmediatePaymentTest extends TestCase
 {
@@ -20,7 +21,7 @@ class ImmediatePaymentTest extends TestCase
         $this->assertArrayHasKey('SANDBOX_PASSWORD', $_SERVER, "SANDBOX_PASSWORD must be defined in the environment");
         $this->assertArrayHasKey('SANDBOX_SHOP_NAME', $_SERVER, "SANDBOX_SHOP_NAME must be defined in the environment");
 
-        // A wrapper object that does everything for you
+        // A wrapper object that does everything for you.
         $this->payment = new \GMO\ImmediatePayment();
         $this->payment->testShopId = $_SERVER['SANDBOX_SHOP_ID'];
         $this->payment->testShopPassword = $_SERVER['SANDBOX_PASSWORD'];
@@ -38,9 +39,15 @@ class ImmediatePaymentTest extends TestCase
         $payment->cardMonth = '7';
         $payment->cardCode = '123';
 
-        // should fail because of non-unique payment ID
+        // Should fail because of non-unique payment ID.
         $this->assertFalse($payment->execute());
+
         $this->assertGreaterThan(0, $payment->getErrorCode());
+
+        // Fetch error codes with descriptions.
+        $errors = $payment->getErrors();
+        $this->assertArrayHasKey(Errors::DUPLICATE_ORDER_ID, $errors);
+        $this->assertEquals('This order ID was used previously.', $errors[Errors::DUPLICATE_ORDER_ID]);
     }
 
     public function testExecuteWithSuccess()
@@ -57,7 +64,7 @@ class ImmediatePaymentTest extends TestCase
         $this->assertTrue($payment->execute());
         $this->assertInstanceOf(\GMO\API\Response\ExecTranResponse::class, $payment->getResponse());
 
-        // Now let's try to load transaction details
+        // Now let's try to load transaction details.
         $searchMethod = new SearchTrade();
         $searchMethod->OrderID = $payment->getResponse()->OrderID;
         $payment->setupOther($searchMethod);

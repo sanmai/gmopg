@@ -44,16 +44,20 @@ $payment = new \GMO\ImmediatePayment();
  // Unique ID for every payment; probably should be taken from an auto-increment field from the database.
 $payment->paymentId = 123;
 $payment->amount = 1000;
-// This card number can be used for tests
+// This card number can be used for tests.
 $payment->cardNumber = '4111111111111111';
-// A date in the future
+// A date in the future.
 $payment->cardYear = '2020';
 $payment->cardMonth = '7';
 $payment->cardCode = '123';
 
+// Returns false on an error.
 if (!$payment->execute()) {
-	$errorCode = $payment->getErrorCode();
-	// Show an error message to the customer? Your choice.
+	$errors = $payment->getErrors();
+	foreach ($errors as $errorCode => $errorDescription) {
+        // Show an error code and a description to the customer? Your choice.
+        // Probably you want to log the error too.
+	}
 	return;
 }
 
@@ -64,6 +68,13 @@ $response = $payment->getResponse();
 // The response can be used to query details about a transaction, make refunds and so on.
 
 ```
+
+Array of `$errors` comes in a form similar to this:
+
+	array(1) {
+	  'E01040010' =>
+	  string(34) "This order ID was used previously."
+	}
 
 [A list of most known error codes.](https://faq.gmo-pg.com/service/Detail.aspx?id=480&printMode=1) [In a readable form.](https://github.com/fumikito/Literally-WordPress/blob/master/class/payment/gmo_error_handler.php) [And another.](https://github.com/everright/gmo-pg-php/blob/master/src/GMO/Payment/Consts.php)
 
