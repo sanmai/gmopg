@@ -150,13 +150,8 @@ class ImmediatePayment
 
         $this->alterTranResponse = $this->alterTran->dispatch();
 
-        if (!$this->verifyResponse($this->alterTranResponse)) {
-            // @codeCoverageIgnoreStart
-            return false; // this should never happen under normal circumstances
-            // @codeCoverageIgnoreEnd
-        }
-
-        return true;
+        // this should never return false under normal circumstances
+        return $this->verifyResponse($this->alterTranResponse);
     }
 
     /**
