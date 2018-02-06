@@ -11,11 +11,13 @@
 
 This library expects certain global constants present. Namely, you need to have defined:
 
-    // ショップ情報
-	define('GMO_SHOP_ID', 'tshop0000001'); // ショップＩＤ
-	define('GMO_SHOP_PASSWORD', 'qwerty'); // ショップ名
-	define('GMO_SHOP_NAME', 'My Shop'); // ショップパスワード
-	define('GMO_TRIAL_MODE', false);
+```php
+  // ショップ情報
+define('GMO_SHOP_ID', 'tshop0000001'); // ショップＩＤ
+define('GMO_SHOP_PASSWORD', 'qwerty'); // ショップ名
+define('GMO_SHOP_NAME', 'My Shop'); // ショップパスワード
+define('GMO_TRIAL_MODE', false);
+```
 
 Where first three you can get from the management panel or from emails from GMO PG. 
 
@@ -23,29 +25,114 @@ The last constant `GMO_TRIAL_MODE` should be set to `true` if you're using a tes
 
 # Usage
 
-	// A wrapper object that does everything for you.
-	$payment = new \GMO\ImmediatePayment();
-	 // Unique ID for every payment; probably should be taken from an auto-increment field from the database.
-	$payment->paymentId = 123;
-	$payment->amount = 1000;
-	// This card number can be used for tests
-	$payment->cardNumber = '4111111111111111';
-	// A date in the future
-	$payment->cardYear = '2020';
-	$payment->cardMonth = '7';
-	$payment->cardCode = '123';
-	
-	if ($payment->execute()) {
-	    // Success!
-	    $response = $payment->getResponse();
-	    /** @var \GMO\API\Response\ExecTranResponse $response */
-	    // You would probably want to save the response in the database.
-	    // The response can be used to query details about a transaction, make refunds and so on.
-	} else {
-	    $errorCode = $payment->getErrorCode();
-	    // Show an error message to the customer? Your choice.
-	}
+```php
+// A wrapper object that does everything for you.
+$payment = new \GMO\ImmediatePayment();
+ // Unique ID for every payment; probably should be taken from an auto-increment field from the database.
+$payment->paymentId = 123;
+$payment->amount = 1000;
+// This card number can be used for tests
+$payment->cardNumber = '4111111111111111';
+// A date in the future
+$payment->cardYear = '2020';
+$payment->cardMonth = '7';
+$payment->cardCode = '123';
+
+if (!$payment->execute()) {
+	$errorCode = $payment->getErrorCode();
+	// Show an error message to the customer? Your choice.
+	return;
+}
+
+// Success!
+$response = $payment->getResponse();
+/** @var \GMO\API\Response\ExecTranResponse $response */
+// You would probably want to save the response in the database for future reference.
+// The response can be used to query details about a transaction, make refunds and so on.
+var_dump($response);
+```
 
 [A list of most known error codes.](https://github.com/fumikito/Literally-WordPress/blob/master/class/payment/gmo_error_handler.php)
 
+A typical `$response` will look like so:
+	
+	class GMO\API\Response\ExecTranResponse#1 (9) {
+	  public $ACS =>
+	  string(1) "0"
+	  public $OrderID =>
+	  string(10) "1517000000"
+	  public $Forward =>
+	  string(7) "0afd1200"
+	  public $Method =>
+	  string(1) "1"
+	  public $PayTimes =>
+	  string(0) ""
+	  public $Approve =>
+	  string(7) "0112234"
+	  public $TranID =>
+	  string(28) "180111111111111111111344439"
+	  public $TranDate =>
+	  string(14) "20221222213141"
+	  public $CheckString =>
+	  string(32) "68b329da9893e34099c7d8ad5cb9c940"
+	}
 
+## Transaction details
+
+Now you naturally want to load transaction details for the current payment. 
+
+```php
+$searchTrade = new \GMO\API\Call\SearchTrade();
+$searchTrade->OrderID = $payment->getResponse()->OrderID;
+// Copy credential from the original payment
+$payment->setupOther($searchTrade);
+
+$response = $searchTrade->dispatch();
+```
+
+In this `$response` you would see an object the following fields: 
+
+	class GMO\API\Response\SearchTradeResponse#4950 (21) {
+	  public $AccessID =>
+	  string(32) "b026324c6904b2a9cb4b88d6d61c81d1"
+	  public $AccessPass =>
+	  string(32) "26ab0db90d72e28ad0ba1e22ee510510"
+	  public $OrderID =>
+	  string(10) "1517000000"
+	  public $Status =>
+	  string(5) "SALES"
+	  public $ProcessDate =>
+	  string(14) "20221222213141"
+	  public $JobCd =>
+	  string(5) "SALES"
+	  public $ItemCode =>
+	  string(7) "0000000"
+	  public $Amount =>
+	  string(4) "4999"
+	  public $Tax =>
+	  string(1) "0"
+	  public $SiteID =>
+	  string(0) ""
+	  public $MemberID =>
+	  string(0) ""
+	  public $CardNo =>
+	  string(16) "************1111"
+	  public $Expire =>
+	  string(4) "2307"
+	  public $Method =>
+	  string(1) "1"
+	  public $PayTimes =>
+	  string(0) ""
+	  public $Forward =>
+	  string(7) "0afd1200"
+	  public $TranID =>
+	  string(28) "180111111111111111111344439"
+	  public $Approve =>
+	  string(7) "0112234"
+	  public $ClientField1 =>
+	  string(0) ""
+	  public $ClientField2 =>
+	  string(0) ""
+	  public $ClientField3 =>
+	  string(0) ""
+	}

@@ -6,6 +6,9 @@
 
 namespace GMO\Tests;
 
+use GMO\API\Call\SearchTrade;
+use GMO\API\Response\SearchTradeResponse;
+
 class ImmediatePaymentTest extends TestCase
 {
     /** @var \GMO\ImmediatePayment */
@@ -53,5 +56,15 @@ class ImmediatePaymentTest extends TestCase
 
         $this->assertTrue($payment->execute());
         $this->assertInstanceOf(\GMO\API\Response\ExecTranResponse::class, $payment->getResponse());
+
+        // Now let's try to load transaction details
+        $searchMethod = new SearchTrade();
+        $searchMethod->OrderID = $payment->getResponse()->OrderID;
+        $payment->setupOther($searchMethod);
+
+        $response = $searchMethod->dispatch();
+
+        $this->assertInstanceOf(SearchTradeResponse::class, $response);
+        $this->assertFalse($response->hasError());
     }
 }

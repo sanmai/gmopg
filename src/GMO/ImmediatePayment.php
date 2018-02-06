@@ -14,6 +14,7 @@ use GMO\API\Call\ExecTran;
 use GMO\API\Response\ExecTranResponse;
 use GMO\API\Call\AlterTran;
 use GMO\API\Response\AlterTranResponse;
+use GMO\API\Call\Magic;
 
 class ImmediatePayment
 {
@@ -170,6 +171,11 @@ class ImmediatePayment
     public function getErrorCode()
     {
         return $this->errorCode;
+    }
+
+    public function setupOther(Magic $method)
+    {
+        return $this->entryTran->setupOther($method);
     }
 
     private function verifyResponse($response)
