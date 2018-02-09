@@ -26,7 +26,8 @@ abstract class Magic
     {
         $this->ShopID = $shopId;
         $this->ShopPass = $shopPassword;
-        $this->TdTenantName = base64_encode($name);
+        // This should be no longer than 25 bytes in decoded form
+        $this->TdTenantName = base64_encode(mb_convert_encoding($name, 'EUC-JP'));
 
         return $this;
     }
