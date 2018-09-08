@@ -33,9 +33,9 @@ There are two ways to configure the API:
 	\GMO\API\Defaults::setPassword($shopPassword);
 	```
 
-## Testing
+## Testing payments
 
-Currently there is no easy way to enable a test mode other than by defining a constant `GMO_TRIAL_MODE` set to `true`.
+Currently there is no other way to enable a test mode other than by defining a constant `GMO_TRIAL_MODE` set to `true`.
 
 # Basic usage
 
