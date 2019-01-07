@@ -3,11 +3,13 @@
     "description": "GMO Payment Gateway API for simple credit card payments",
     "type": "library",
     "require": {
-        "guzzlehttp/guzzle": "^6"
+        "php": ">=5.6.30",
+        "guzzlehttp/guzzle": "^6",
+        "sanmai/pipeline": "^0.3.2|^2.0|^3.0.1"
     },
     "require-dev": {
         "phpunit/phpunit": "<6",
-        "satooshi/php-coveralls": "^1.0",
+        "php-coveralls/php-coveralls": "^1.0",
         "friendsofphp/php-cs-fixer": "^2.6"
     },
     "license": "MIT",
