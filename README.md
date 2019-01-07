@@ -31,6 +31,9 @@ There are two ways to configure the API:
 	\GMO\API\Defaults::setShopID($shopId);
 	\GMO\API\Defaults::setShopName($shopName);
 	\GMO\API\Defaults::setPassword($shopPassword);
+	
+	// When using a test password, this constant is mandatory
+	//define('GMO_TRIAL_MODE', true);
 	```
 
 ## Testing payments
