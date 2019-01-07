@@ -61,7 +61,12 @@ class ImmediatePaymentTest extends TestCase
         $payment->cardMonth = '7';
         $payment->cardCode = '123';
 
-        $this->assertTrue($payment->execute());
+        if (!$result = $payment->execute()) {
+            $this->assertArrayHasKey(Errors::NO_FULL_CARD_NUMBERS_ALLOWED, $payment->getErrors());
+            $this->markTestIncomplete("Payment with a complete card number is not enabled for the test environment");
+        }
+
+        $this->assertTrue($result);
         $this->assertInstanceOf(\GMO\API\Response\ExecTranResponse::class, $payment->getResponse());
 
         // Now let's try to load transaction details.

@@ -28,6 +28,11 @@ class Errors
     const DUPLICATE_ORDER_ID = 'E01040010';
 
     /**
+     * @see https://faq.gmo-pg.com/service/Detail.aspx?id=2039
+     */
+    const NO_FULL_CARD_NUMBERS_ALLOWED = 'E61040001';
+
+    /**
      * Some error codes and descriptions in English
      */
     const ERROR_CODE_TO_DESCRIPTION_MAP_ENGLISH = [

@@ -16,6 +16,15 @@ class ErrorResponse extends Basic
         return !empty($this->ErrCode);
     }
 
+    public function hasErrorWithCode($code)
+    {
+        if (!is_array($this->ErrInfo)) {
+            return false;
+        }
+
+        return in_array($code, $this->ErrInfo);
+    }
+
     public function splitErrors()
     {
         if (!is_array($this->ErrCode)) {

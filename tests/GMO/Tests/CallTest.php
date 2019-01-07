@@ -157,7 +157,17 @@ class CallTest extends TestCase
 
         $execResponse = $method->dispatch();
 
-        $this->assertTrue($execResponse instanceof ExecTranResponse);
+        if ($execResponse instanceof ErrorResponse) {
+            if ($execResponse->hasErrorWithCode(Errors::NO_FULL_CARD_NUMBERS_ALLOWED)) {
+                $this->markTestIncomplete("Payment with a complete card number is not enabled for the test environment");
+            }
+
+            foreach ($execResponse->ErrInfo as $code) {
+                $this->fail(Errors::getDescription($code));
+            }
+        }
+
+        $this->assertInstanceOf(ExecTranResponse::class, $execResponse);
         $this->assertTrue($method->verifyResponse($execResponse));
 
         return $response;
