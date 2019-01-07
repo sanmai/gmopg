@@ -40,6 +40,10 @@ There are two ways to configure the API:
 
 Currently there is no other way to enable a test mode other than by defining a constant `GMO_TRIAL_MODE` set to `true`.
 
+```php
+define('GMO_TRIAL_MODE', true);
+```
+
 # Basic usage
 
 ```php
