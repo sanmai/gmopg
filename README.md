@@ -43,6 +43,7 @@ Currently there is no other way to enable a test mode other than by defining a c
 ```php
 define('GMO_TRIAL_MODE', true);
 ```
+Testing payments with directly-entered card numbers with test environment credentials requires you to [enable such payments as outlined in the documentation](https://faq.gmo-pg.com/service/Detail.aspx?id=2043&page=0&listNo=0&category=0).
 
 # Basic usage
 
