@@ -23,33 +23,35 @@
 
 namespace GMO;
 
-use GMO\API\MethodsSandbox;
-use GMO\API\Response\ErrorResponse;
-use GMO\API\Call\EntryTran;
-use GMO\API\Response\EntryTranResponse;
-use GMO\API\Call\ExecTran;
-use GMO\API\Response\ExecTranResponse;
 use GMO\API\Call\AlterTran;
-use GMO\API\Response\AlterTranResponse;
+use GMO\API\Call\EntryTran;
+use GMO\API\Call\ExecTran;
 use GMO\API\Call\Magic;
 use GMO\API\Errors;
+use GMO\API\MethodsSandbox;
+use GMO\API\Response\AlterTranResponse;
+use GMO\API\Response\EntryTranResponse;
+use GMO\API\Response\ErrorResponse;
+use GMO\API\Response\ExecTranResponse;
 
 class ImmediatePayment
 {
     /**
      * Unique ID for the payment.
+     *
      * @var int
      */
     public $paymentId;
 
     /**
-     * Payment amount (Japanese yen only)
+     * Payment amount (Japanese yen only).
+     *
      * @var int
      */
     public $amount;
 
     /**
-     * Card number to be credited from
+     * Card number to be credited from.
      *
      * For testing use 4111111111111111
      *
@@ -58,19 +60,22 @@ class ImmediatePayment
     public $cardNumber;
 
     /**
-     * Card's expiration year (four digits, e.g. 2038)
+     * Card's expiration year (four digits, e.g. 2038).
+     *
      * @var string
      */
     public $cardYear;
 
     /**
-     * Card's expiration month (from 1 to 12, not zero-padded)
+     * Card's expiration month (from 1 to 12, not zero-padded).
+     *
      * @var string
      */
     public $cardMonth;
 
     /**
-     * CVV code
+     * CVV code.
+     *
      * @var string
      */
     public $cardCode;
@@ -103,12 +108,13 @@ class ImmediatePayment
 
     /**
      * Proceeds with a payment. Can be done just once for a single payment ID.
-     * @return boolean if a valid response received
+     *
+     * @return bool if a valid response received
      */
     public function execute()
     {
         foreach (['paymentId', 'amount', 'cardNumber', 'cardYear', 'cardMonth', 'cardCode'] as $requiredVar) {
-            if (empty($this->$requiredVar)) {
+            if (empty($this->{$requiredVar})) {
                 throw new Exception("Missing $requiredVar");
             }
         }
@@ -183,6 +189,7 @@ class ImmediatePayment
 
     /**
      * Array of error codes.
+     *
      * @return array
      */
     public function getErrorCode()
@@ -213,6 +220,7 @@ class ImmediatePayment
         if ($response instanceof ErrorResponse) {
             $this->errorShortCode = $response->ErrCode;
             $this->errorCode = $response->ErrInfo;
+
             return false;
         }
 

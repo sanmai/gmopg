@@ -23,12 +23,12 @@
 
 namespace GMO\API\Call;
 
+use GMO\API\Constants;
 use GMO\API\Defaults;
+use GMO\API\Exception\FailedRequirement;
 use GMO\API\MethodsAbstract;
 use GMO\API\Response\Basic;
-use GMO\API\Exception\FailedRequirement;
 use GMO\API\Response\VerifiableResponse;
-use GMO\API\Constants;
 
 abstract class Magic
 {
@@ -36,7 +36,7 @@ abstract class Magic
     private $ShopPass;
     private $TdTenantName;
 
-    public $User =  Constants::API_USER;
+    public $User = Constants::API_USER;
     public $Version = Constants::API_VERSION;
 
     public function setShop($shopId, $shopPassword, $name)
@@ -100,9 +100,9 @@ abstract class Magic
         // @codeCoverageIgnoreEnd
 
         return [
-            'ShopID' => $this->ShopID,
-            'ShopPass' => $this->ShopPass,
-            'TdTenantName' => $this->TdTenantName
+            'ShopID'       => $this->ShopID,
+            'ShopPass'     => $this->ShopPass,
+            'TdTenantName' => $this->TdTenantName,
         ];
     }
 
@@ -110,7 +110,7 @@ abstract class Magic
     {
         foreach (func_get_args() as $val) {
             if (empty($val)) {
-                throw new FailedRequirement("Failed requirement");
+                throw new FailedRequirement('Failed requirement');
             }
         }
 

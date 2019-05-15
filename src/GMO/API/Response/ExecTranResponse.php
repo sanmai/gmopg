@@ -38,6 +38,6 @@ class ExecTranResponse extends Basic implements VerifiableResponse
     public function verifyWithPassword($password)
     {
         return hash_equals(md5(implode([$this->OrderID, $this->Forward, $this->Method,
-            $this->PayTimes, $this->Approve, $this->TranID, $this->TranDate, $password])), $this->CheckString);
+            $this->PayTimes, $this->Approve, $this->TranID, $this->TranDate, $password, ])), $this->CheckString);
     }
 }

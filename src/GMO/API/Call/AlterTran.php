@@ -19,12 +19,12 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
- */ 
+ */
 
 namespace GMO\API\Call;
 
-use GMO\API\Response\AlterTranResponse;
 use GMO\API\Call\Traits\SettableAccessIDTrait;
+use GMO\API\Response\AlterTranResponse;
 
 class AlterTran extends Magic
 {
@@ -41,6 +41,7 @@ class AlterTran extends Magic
     public $JobCd;
     /**
      * 利用金額 仮売上を実施した際の【取引登録】で指定した金額を設定します。
+     *
      * @var int
      */
     public $Amount;

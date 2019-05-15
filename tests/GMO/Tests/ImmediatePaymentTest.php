@@ -24,8 +24,8 @@
 namespace GMO\Tests;
 
 use GMO\API\Call\SearchTrade;
-use GMO\API\Response\SearchTradeResponse;
 use GMO\API\Errors;
+use GMO\API\Response\SearchTradeResponse;
 
 class ImmediatePaymentTest extends TestCase
 {
@@ -34,9 +34,9 @@ class ImmediatePaymentTest extends TestCase
 
     protected function setUp()
     {
-        $this->assertArrayHasKey('SANDBOX_SHOP_ID', $_SERVER, "SANDBOX_SHOP_ID must be defined in the environment");
-        $this->assertArrayHasKey('SANDBOX_PASSWORD', $_SERVER, "SANDBOX_PASSWORD must be defined in the environment");
-        $this->assertArrayHasKey('SANDBOX_SHOP_NAME', $_SERVER, "SANDBOX_SHOP_NAME must be defined in the environment");
+        $this->assertArrayHasKey('SANDBOX_SHOP_ID', $_SERVER, 'SANDBOX_SHOP_ID must be defined in the environment');
+        $this->assertArrayHasKey('SANDBOX_PASSWORD', $_SERVER, 'SANDBOX_PASSWORD must be defined in the environment');
+        $this->assertArrayHasKey('SANDBOX_SHOP_NAME', $_SERVER, 'SANDBOX_SHOP_NAME must be defined in the environment');
 
         // A wrapper object that does everything for you.
         $this->payment = new \GMO\ImmediatePayment();
@@ -80,7 +80,7 @@ class ImmediatePaymentTest extends TestCase
 
         if (!$result = $payment->execute()) {
             $this->assertArrayHasKey(Errors::NO_FULL_CARD_NUMBERS_ALLOWED, $payment->getErrors());
-            $this->markTestIncomplete("Payment with a complete card number is not enabled for the test environment");
+            $this->markTestIncomplete('Payment with a complete card number is not enabled for the test environment');
         }
 
         $this->assertTrue($result);

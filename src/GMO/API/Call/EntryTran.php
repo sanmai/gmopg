@@ -23,8 +23,8 @@
 
 namespace GMO\API\Call;
 
-use GMO\API\Response\EntryTranResponse;
 use GMO\API\Constants;
+use GMO\API\Response\EntryTranResponse;
 
 class EntryTran extends Magic
 {

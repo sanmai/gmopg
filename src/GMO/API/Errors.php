@@ -46,7 +46,7 @@ class Errors
     const NO_FULL_CARD_NUMBERS_ALLOWED = 'E61040001';
 
     /**
-     * Some error codes and descriptions in English
+     * Some error codes and descriptions in English.
      */
     const ERROR_CODE_TO_DESCRIPTION_MAP_ENGLISH = [
         'E01040001' => 'Order ID must be specified in the request.',
@@ -56,7 +56,7 @@ class Errors
     ];
 
     /**
-     * Error codes and descriptions in Japanese from Literally WordPress
+     * Error codes and descriptions in Japanese from Literally WordPress.
      */
     const ERROR_CODE_TO_DESCRIPTION_MAP_JAPANESE = [
         'E00000000' => '特になし',
@@ -570,7 +570,7 @@ class Errors
     {
         foreach ([
             self::ERROR_CODE_TO_DESCRIPTION_MAP_ENGLISH,
-            self::ERROR_CODE_TO_DESCRIPTION_MAP_JAPANESE
+            self::ERROR_CODE_TO_DESCRIPTION_MAP_JAPANESE,
         ] as $errors) {
             if (isset($errors[$code])) {
                 return $errors[$code];

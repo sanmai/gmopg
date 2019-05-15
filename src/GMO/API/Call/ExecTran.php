@@ -23,8 +23,8 @@
 
 namespace GMO\API\Call;
 
-use GMO\API\Response\ExecTranResponse;
 use GMO\API\Call\Traits\SettableAccessIDTrait;
+use GMO\API\Response\ExecTranResponse;
 
 class ExecTran extends Magic
 {

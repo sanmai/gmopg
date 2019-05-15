@@ -1,21 +1,33 @@
 <?php
-/*
- * Copyright © 2017 Alexey Kopytko.
- * Distributed under the MIT License.
- */
+
+$header = trim('This code is licensed under the MIT License.'.substr(file_get_contents('LICENSE'), strlen('The MIT License')));
+
+use PhpCsFixer\Fixer\Operator\BinaryOperatorSpacesFixer;
 
 return PhpCsFixer\Config::create()
     ->setRiskyAllowed(true)
     ->setRules([
-        '@PSR2' => true,
-        'psr4' => true,
+        '@Symfony' => true,
+        'array_syntax' => ['syntax' => 'short'],
+        'declare_strict_types' => false,
+        'explicit_indirect_variable' => true,
+        'no_superfluous_elseif' => true,
         'no_unreachable_default_argument_value' => true,
         'no_useless_else' => true,
         'no_useless_return' => true,
+        'ordered_class_elements' => false,
+        'non_printable_character' => true,
+        'ordered_imports' => true,
+        'php_unit_test_class_requires_covers' => false,
         'phpdoc_add_missing_param_annotation' => true,
         'phpdoc_order' => true,
-        'semicolon_after_instruction' => true,
-        'whitespace_after_comma_in_array' => true,
+        'visibility_required' => true,
+        'header_comment' => ['header' => $header, 'separate' => 'bottom', 'location' => 'after_open', 'comment_type' => 'PHPDoc'],
+        'ternary_to_null_coalescing' => true,
+        'yoda_style' => null,
+        'phpdoc_to_comment' => false,
+        'binary_operator_spaces' => ['operators' => ['=>' => BinaryOperatorSpacesFixer::ALIGN]],
+        'strict_comparison' => true,
     ])
     ->setFinder(
         PhpCsFixer\Finder::create()

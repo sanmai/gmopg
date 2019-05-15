@@ -23,30 +23,30 @@
 
 namespace GMO\Tests;
 
+use GMO\API\Call\AlterTran;
+use GMO\API\Call\EntryTran;
+use GMO\API\Call\Example;
+use GMO\API\Call\ExecTran;
+use GMO\API\Call\Magic;
+use GMO\API\Call\SearchTrade;
+use GMO\API\Errors;
 use GMO\API\MethodsAbstract;
 use GMO\API\MethodsSandbox;
-use GMO\API\Call\EntryTran;
+use GMO\API\Response\AccessIDInterface;
+use GMO\API\Response\AlterTranResponse;
 use GMO\API\Response\EntryTranResponse;
 use GMO\API\Response\ErrorResponse;
-use GMO\API\Errors;
-use GMO\API\Call\SearchTrade;
-use GMO\API\Response\SearchTradeResponse;
-use GMO\API\Call\ExecTran;
-use GMO\API\Response\ExecTranResponse;
-use GMO\API\Call\AlterTran;
-use GMO\API\Response\AlterTranResponse;
-use GMO\API\Response\AccessIDInterface;
-use GMO\API\Call\Example;
-use GMO\API\Call\Magic;
 use GMO\API\Response\ExampleResponse;
+use GMO\API\Response\ExecTranResponse;
+use GMO\API\Response\SearchTradeResponse;
 
 class CallTest extends TestCase
 {
     public function testEnvironment()
     {
-        $this->assertArrayHasKey('SANDBOX_SHOP_ID', $_SERVER, "SANDBOX_SHOP_ID must be defined in the environment");
-        $this->assertArrayHasKey('SANDBOX_PASSWORD', $_SERVER, "SANDBOX_PASSWORD must be defined in the environment");
-        $this->assertArrayHasKey('SANDBOX_SHOP_NAME', $_SERVER, "SANDBOX_SHOP_NAME must be defined in the environment");
+        $this->assertArrayHasKey('SANDBOX_SHOP_ID', $_SERVER, 'SANDBOX_SHOP_ID must be defined in the environment');
+        $this->assertArrayHasKey('SANDBOX_PASSWORD', $_SERVER, 'SANDBOX_PASSWORD must be defined in the environment');
+        $this->assertArrayHasKey('SANDBOX_SHOP_NAME', $_SERVER, 'SANDBOX_SHOP_NAME must be defined in the environment');
     }
 
     public function testGetMethods()
@@ -139,6 +139,7 @@ class CallTest extends TestCase
         if ($this->orderId) {
             return $this->orderId;
         }
+
         return $this->orderId = time();
     }
 
@@ -176,7 +177,7 @@ class CallTest extends TestCase
 
         if ($execResponse instanceof ErrorResponse) {
             if ($execResponse->hasErrorWithCode(Errors::NO_FULL_CARD_NUMBERS_ALLOWED)) {
-                $this->markTestIncomplete("Payment with a complete card number is not enabled for the test environment");
+                $this->markTestIncomplete('Payment with a complete card number is not enabled for the test environment');
             }
 
             foreach ($execResponse->ErrInfo as $code) {

@@ -31,6 +31,7 @@ trait SettableAccessIDTrait
     {
         $this->AccessID = $response->getAccessID();
         $this->AccessPass = $response->getAccessPass();
+
         return $this;
     }
 }

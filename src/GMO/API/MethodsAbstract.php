@@ -25,8 +25,8 @@ namespace GMO\API;
 
 use GMO\API\Call\Magic;
 use GMO\API\Response\ErrorResponse;
-use GuzzleHttp\Client;
 use GMO\Exception;
+use GuzzleHttp\Client;
 
 abstract class MethodsAbstract
 {
@@ -36,12 +36,13 @@ abstract class MethodsAbstract
     {
         // expected format is "GMO\API\Call\Example"
         if (!preg_match('#\\\([^\\\]+)$#', get_class($class), $matched)) {
-            throw new Exception("Invalid class name: must be within a namespace");
+            throw new Exception('Invalid class name: must be within a namespace');
         }
 
         list(, $className) = $matched;
 
         $this->reflection || $this->reflection = new \ReflectionClass($this);
+
         return $this->reflection->getConstant($className);
     }
 

@@ -26,5 +26,6 @@ namespace GMO\API\Response;
 interface AccessIDInterface
 {
     public function getAccessID();
+
     public function getAccessPass();
 }
