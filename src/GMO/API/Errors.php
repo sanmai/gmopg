@@ -21,6 +21,12 @@
  * SOFTWARE.
  */
 
+/**
+ * Error codes courtesy Literally WordPress.
+ * Licensed under GPLv2 © 2012 Takahashi Fumiki
+ * https://github.com/fumikito/Literally-WordPress/blob/master/class/payment/gmo_error_handler.php.
+ */
+
 namespace GMO\API;
 
 /**
