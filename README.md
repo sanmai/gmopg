@@ -129,6 +129,8 @@ if (!$payment->execute()) {
 // ... same as above
 ```
 
+One should use the above method of payment if they're getting the venerable error E61040001.
+
 ## Transaction details
 
 Now you naturally want to load transaction details for the current payment. 
