@@ -110,6 +110,25 @@ A typical `$response` will look like so:
 	  string(32) "68b329da9893e34099c7d8ad5cb9c940"
 	}
 
+
+## Paying with a token
+
+A payment object can accept a token received from the JavaScript API instead of credit card details:
+
+```php
+$payment = new \GMO\ImmediatePayment();
+$payment->paymentId = 123; // Unique ID for every payment; see above
+$payment->amount = 1000;
+// Card details are unnecessary in this case
+$payment->token = $_POST['token'];
+
+if (!$payment->execute()) {
+    // ... same as above
+}
+
+// ... same as above
+```
+
 ## Transaction details
 
 Now you naturally want to load transaction details for the current payment. 
