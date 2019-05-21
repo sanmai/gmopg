@@ -122,6 +122,6 @@ class ImmediatePaymentTest extends TestCase
         $errors = $payment->getErrors();
 
         $this->assertArrayHasKey('EX1000301', $errors);
-        $this->assertEquals('An unknown error occurred.', $errors[Errors::DUPLICATE_ORDER_ID]);
+        $this->assertEquals('An unknown error occurred.', $errors['EX1000301']);
     }
 }
