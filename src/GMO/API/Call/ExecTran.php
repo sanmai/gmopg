@@ -42,6 +42,7 @@ class ExecTran extends Magic
     public $CardNo;
     public $Expire; // YYMM
     public $SecurityCode;
+    public $Token;
     public $HttpAccept;
     public $HttpUserAgent;
     public $DeviceCategory = 0;
@@ -76,10 +77,20 @@ class ExecTran extends Magic
         return $this;
     }
 
+    public function setToken($token)
+    {
+        $this->Token = $token;
+
+        return $this;
+    }
+
     public function dispatch()
     {
         $this->withRequired($this->OrderID, $this->AccessID, $this->AccessPass);
-        $this->withRequired($this->CardNo, $this->Expire, $this->SecurityCode);
+
+        if (!isset($this->Token)) {
+            $this->withRequired($this->CardNo, $this->Expire, $this->SecurityCode);
+        }
 
         // needed by the GMO PG for whatever reasons there are
         $this->HttpAccept = $_SERVER['HTTP_ACCEPT'];

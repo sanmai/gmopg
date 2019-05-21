@@ -82,6 +82,13 @@ class ImmediatePayment
      */
     public $cardCode;
 
+    /**
+     * Payment token.
+     *
+     * @var string
+     */
+    public $token;
+
     private $errorShortCode;
     private $errorCode;
 
@@ -115,10 +122,20 @@ class ImmediatePayment
      */
     public function execute()
     {
-        foreach (['paymentId', 'amount', 'cardNumber', 'cardYear', 'cardMonth', 'cardCode'] as $requiredVar) {
-            if (empty($this->{$requiredVar})) {
-                throw new Exception("Missing $requiredVar");
-            }
+        $this->checkRequiredVars([
+            'paymentId',
+            'amount',
+        ]);
+
+        if (isset($this->token)) {
+            $this->checkRequiredVars(['token']);
+        } else {
+            $this->checkRequiredVars([
+                'cardNumber',
+                'cardYear',
+                'cardMonth',
+                'cardCode',
+            ]);
         }
 
         // Setup transaction details (password etc)
@@ -146,10 +163,15 @@ class ImmediatePayment
         // copy the access keys for the transaction
         $this->execTran->setAccessID($this->entryTranResponse);
 
-        // setup card number and such
-        $this->execTran->setCardNumber($this->cardNumber);
-        $this->execTran->setCardExpiryYearMonth($this->cardYear, $this->cardMonth);
-        $this->execTran->setCardSecurityCode($this->cardCode);
+        if (!isset($this->token)) {
+            // setup card number and such
+            $this->execTran->setCardNumber($this->cardNumber);
+            $this->execTran->setCardExpiryYearMonth($this->cardYear, $this->cardMonth);
+            $this->execTran->setCardSecurityCode($this->cardCode);
+        } else {
+            $this->execTran->setToken($this->token);
+        }
+
         $this->execTranResponse = $this->execTran->dispatch();
 
         if (!$this->verifyResponse($this->execTranResponse)) {
@@ -227,5 +249,14 @@ class ImmediatePayment
         }
 
         return true;
+    }
+
+    private function checkRequiredVars($vars)
+    {
+        foreach ($vars as $requiredVar) {
+            if (empty($this->{$requiredVar})) {
+                throw new Exception("Missing $requiredVar");
+            }
+        }
     }
 }

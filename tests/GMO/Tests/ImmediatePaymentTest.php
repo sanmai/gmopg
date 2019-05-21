@@ -39,17 +39,23 @@ class ImmediatePaymentTest extends TestCase
         $this->assertArrayHasKey('SANDBOX_SHOP_ID', $_SERVER, 'SANDBOX_SHOP_ID must be defined in the environment');
         $this->assertArrayHasKey('SANDBOX_PASSWORD', $_SERVER, 'SANDBOX_PASSWORD must be defined in the environment');
         $this->assertArrayHasKey('SANDBOX_SHOP_NAME', $_SERVER, 'SANDBOX_SHOP_NAME must be defined in the environment');
+    }
 
+    /** @return \GMO\ImmediatePayment */
+    private function getPayment()
+    {
         // A wrapper object that does everything for you.
-        $this->payment = new \GMO\ImmediatePayment();
-        $this->payment->testShopId = $_SERVER['SANDBOX_SHOP_ID'];
-        $this->payment->testShopPassword = $_SERVER['SANDBOX_PASSWORD'];
-        $this->payment->testShopName = $_SERVER['SANDBOX_SHOP_NAME'];
+        $payment = new \GMO\ImmediatePayment();
+        $payment->testShopId = $_SERVER['SANDBOX_SHOP_ID'];
+        $payment->testShopPassword = $_SERVER['SANDBOX_PASSWORD'];
+        $payment->testShopName = $_SERVER['SANDBOX_SHOP_NAME'];
+
+        return $payment;
     }
 
     public function testExecuteWithError()
     {
-        $payment = $this->payment;
+        $payment = $this->getPayment();
 
         $payment->paymentId = 1; // ID is non-unique here on purpose
         $payment->amount = 4999;
@@ -71,7 +77,7 @@ class ImmediatePaymentTest extends TestCase
 
     public function testExecuteWithSuccess()
     {
-        $payment = $this->payment;
+        $payment = $this->getPayment();
 
         $payment->paymentId = time();
         $payment->amount = 4999;
@@ -97,5 +103,25 @@ class ImmediatePaymentTest extends TestCase
 
         $this->assertInstanceOf(SearchTradeResponse::class, $response);
         $this->assertFalse($response->hasError());
+    }
+
+    public function testFailWithUnknownToken()
+    {
+        $payment = $this->getPayment();
+
+        $payment->paymentId = time() + 1;
+        $payment->amount = 4999;
+        $payment->token = '123456';
+
+        // Should fail because of invalid token.
+        $this->assertFalse($payment->execute());
+
+        $this->assertGreaterThan(0, $payment->getErrorCode());
+
+        // Fetch error codes with descriptions.
+        $errors = $payment->getErrors();
+
+        $this->assertArrayHasKey('EX1000301', $errors);
+        $this->assertEquals('An unknown error occurred.', $errors[Errors::DUPLICATE_ORDER_ID]);
     }
 }
